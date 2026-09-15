@@ -31,10 +31,10 @@
             line-height: 1.6;
             padding: 40px 20px;
             position: relative;
-            overflow-x: hidden; /* 워터마크 회전으로 인한 스크롤 방지 */
+            overflow-x: hidden; /* 회전된 워터마크로 인한 오버플로우 방지 */
         }
 
-        /* [수정] ADplanters 로고 축소 및 45도 사선 바둑판 워터마크 */
+        /* [수정] 배경 워터마크 1: 홀수 행 (기본 X축 위치 배치) */
         body::before {
             content: "";
             position: fixed;
@@ -44,11 +44,45 @@
             height: 200vmax;
             background-image: url('./images/ADplanters_logo_PNG.png');
             background-repeat: repeat;
-            background-size: 140px; /* 로고 크기 축소 (기존 250px -> 140px) */
+            background-size: 130px 80px; /* 로고 규격 및 행 간격 설정 */
             opacity: 0.04;
             z-index: -1;
             pointer-events: none;
-            transform: rotate(-45deg); /* 45도 사선 배치 */
+            transform: rotate(-45deg);
+
+            /* 홀수 행(0~80px) 영역만 노출하는 리니어 마스크 */
+            -webkit-mask-image: linear-gradient(to bottom, #000 0px, #000 80px, transparent 80px, transparent 160px);
+            mask-image: linear-gradient(to bottom, #000 0px, #000 80px, transparent 80px, transparent 160px);
+            -webkit-mask-size: 100% 160px;
+            mask-size: 100% 160px;
+            -webkit-mask-repeat: repeat;
+            mask-repeat: repeat;
+        }
+
+        /* [추가] 배경 워터마크 2: 짝수 행 (X축 65px 이동 지그재그 교차 배치) */
+        body::after {
+            content: "";
+            position: fixed;
+            top: -50vmax;
+            left: -50vmax;
+            width: 200vmax;
+            height: 200vmax;
+            background-image: url('./images/ADplanters_logo_PNG.png');
+            background-repeat: repeat;
+            background-size: 130px 80px;
+            background-position: 65px 0; /* X축으로 로고 너비의 절반(65px) 시프트 */
+            opacity: 0.04;
+            z-index: -1;
+            pointer-events: none;
+            transform: rotate(-45deg);
+
+            /* 짝수 행(80~160px) 영역만 노출하는 리니어 마스크 */
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0px, transparent 80px, #000 80px, #000 160px);
+            mask-image: linear-gradient(to bottom, transparent 0px, transparent 80px, #000 80px, #000 160px);
+            -webkit-mask-size: 100% 160px;
+            mask-size: 100% 160px;
+            -webkit-mask-repeat: repeat;
+            mask-repeat: repeat;
         }
 
         .container {
@@ -74,7 +108,7 @@
             font-size: 1rem;
         }
 
-        /* 섹션 카드: 호버 모션 효과 */
+        /* 카드 인터랙션 애니메이션 설정 */
         .pricing-section {
             background: var(--card-bg);
             border-radius: 12px;
@@ -152,7 +186,6 @@
             margin-top: 15px;
         }
 
-        /* 패키지 카드: 호버 모션 효과 */
         .card {
             border: 1px solid var(--border-color);
             border-radius: 10px;
@@ -226,7 +259,7 @@
             font-weight: 500;
         }
 
-        /* [추가] 하단 카카오톡 CTA 버튼 스타일 */
+        /* 하단 카카오톡 CTA 버튼 */
         .cta-section {
             text-align: center;
             margin-top: 50px;
