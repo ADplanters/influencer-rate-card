@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>adplanters 인플루언서 마케팅 단가표</title>
     <style>
-        /* [스타일 설정] adplanters 디자인 테마 변수 정의 */
         :root {
             --primary-color: #2563EB;
             --primary-hover: #1D4ED8;
@@ -29,11 +28,31 @@
             color: var(--text-main);
             line-height: 1.6;
             padding: 40px 20px;
+            position: relative;
+        }
+
+        /* ADplanters 로고 바둑판(타일) 워터마크 */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; 
+            left: 0; 
+            width: 100vw; 
+            height: 100vh;
+            /* 변경된 이미지 파일명 반영: images/ADplanters_logo_PNG.png */
+            background-image: url('./images/ADplanters_logo_PNG.png');
+            background-repeat: repeat;
+            background-size: 250px;
+            opacity: 0.04;
+            z-index: -1;
+            pointer-events: none;
         }
 
         .container {
             max-width: 900px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         header {
@@ -52,7 +71,7 @@
             font-size: 1rem;
         }
 
-        /* [공통 섹션 레이아웃] 카드 형태의 컨테이너 */
+        /* 섹션 카드: 호버 모션 효과 */
         .pricing-section {
             background: var(--card-bg);
             border-radius: 12px;
@@ -60,6 +79,12 @@
             margin-bottom: 35px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
             border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .pricing-section:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
 
         .section-header {
@@ -81,7 +106,6 @@
             color: var(--text-sub);
         }
 
-        /* [섹션 1] 테이블 스타일 */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -118,7 +142,6 @@
             color: #92400E;
         }
 
-        /* [섹션 2] 그룹 패키지 그리드 스타일 */
         .card-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -126,12 +149,20 @@
             margin-top: 15px;
         }
 
+        /* 패키지 카드: 호버 모션 효과 */
         .card {
             border: 1px solid var(--border-color);
             border-radius: 10px;
             padding: 24px;
             background: #FAFAFA;
             text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            background: #FFFFFF;
         }
 
         .card h3 {
@@ -167,7 +198,6 @@
             color: var(--primary-color);
         }
 
-        /* [섹션 3] 안내 박스 스타일 */
         .info-box {
             background-color: #F8FAFC;
             border-left: 4px solid var(--primary-color);
@@ -193,7 +223,6 @@
             font-weight: 500;
         }
 
-        /* [반응형 레이아웃] 모바일 가독성 최적화 */
         @media (max-width: 640px) {
             body {
                 padding: 15px 10px;
@@ -259,6 +288,7 @@
                     </tr>
                 </tbody>
             </table>
+            <p class="notice-text">* 진행 인원수에 따라 견적 조율 가능</p>
         </section>
 
         <!-- 2. 제품 제공 협찬 섹션 -->
