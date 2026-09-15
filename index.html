@@ -14,6 +14,8 @@
             --text-sub: #475569;
             --border-color: #E2E8F0;
             --accent-color: #DC2626;
+            --kakao-yellow: #FEE500;
+            --kakao-text: #191919;
         }
 
         * {
@@ -29,23 +31,24 @@
             line-height: 1.6;
             padding: 40px 20px;
             position: relative;
+            overflow-x: hidden; /* 워터마크 회전으로 인한 스크롤 방지 */
         }
 
-        /* ADplanters 로고 바둑판(타일) 워터마크 */
+        /* [수정] ADplanters 로고 축소 및 45도 사선 바둑판 워터마크 */
         body::before {
             content: "";
             position: fixed;
-            top: 0; 
-            left: 0; 
-            width: 100vw; 
-            height: 100vh;
-            /* 변경된 이미지 파일명 반영: images/ADplanters_logo_PNG.png */
+            top: -50vmax;
+            left: -50vmax;
+            width: 200vmax;
+            height: 200vmax;
             background-image: url('./images/ADplanters_logo_PNG.png');
             background-repeat: repeat;
-            background-size: 250px;
+            background-size: 140px; /* 로고 크기 축소 (기존 250px -> 140px) */
             opacity: 0.04;
             z-index: -1;
             pointer-events: none;
+            transform: rotate(-45deg); /* 45도 사선 배치 */
         }
 
         .container {
@@ -223,6 +226,40 @@
             font-weight: 500;
         }
 
+        /* [추가] 하단 카카오톡 CTA 버튼 스타일 */
+        .cta-section {
+            text-align: center;
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+
+        .kakao-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: var(--kakao-yellow);
+            color: var(--kakao-text);
+            font-size: 1.1rem;
+            font-weight: 700;
+            padding: 16px 36px;
+            border-radius: 12px;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+
+        .kakao-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+            background-color: #FADA0A;
+        }
+
+        .kakao-btn svg {
+            width: 22px;
+            height: 22px;
+        }
+
         @media (max-width: 640px) {
             body {
                 padding: 15px 10px;
@@ -233,6 +270,10 @@
             .section-header {
                 flex-direction: column;
                 gap: 4px;
+            }
+            .kakao-btn {
+                width: 100%;
+                padding: 14px 20px;
             }
         }
     </style>
@@ -345,6 +386,16 @@
             </div>
             <p class="notice-text">* 상품 진단 결과에 따라 수수료율 및 진행비 범위가 최종 확정됩니다.</p>
         </section>
+
+        <!-- 하단 카카오톡 문의하기 CTA 버튼 -->
+        <footer class="cta-section">
+            <a href="http://pf.kakao.com/_qxjTtj" target="_blank" rel="noopener noreferrer" class="kakao-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 3C6.477 3 2 6.477 2 10.767c0 2.775 1.875 5.207 4.7 6.645-.205.748-.744 2.706-.853 3.129-.136.527.194.52.408.378.169-.112 2.684-1.82 3.771-2.559.658.093 1.334.143 2.022.143 5.523 0 10-3.477 10-7.767S17.523 3 12 3z"/>
+                </svg>
+                카카오톡 문의하기
+            </a>
+        </footer>
     </div>
 
 </body>
